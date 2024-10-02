@@ -2,18 +2,10 @@
 #include <map>
 #include <vector>
 
-struct ZipCodeData
-{
-    int zip_code;
-    std::string place_name;
-    std::string state;
-    std::string county;
-    float latitude;
-    float longitude;
-};
+#include "zipcode.h"
 
-class Buffer
-{
-private:
+class Buffer {
+    std::vector<ZipCodeData> zipcodes;
 public:
+    Buffer();
 };

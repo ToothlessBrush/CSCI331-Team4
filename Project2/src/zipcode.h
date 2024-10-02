@@ -1,6 +1,8 @@
 #ifndef ZIP_CODE_H
 #define ZIP_CODE_H
 
+#include <string>
+
 struct ZipCodeData
 {
     int zip_code;
