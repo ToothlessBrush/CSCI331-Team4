@@ -1,19 +1,19 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <tuple>
 
-struct ZipCodeData
-{
-    int zip_code;
-    std::string place_name;
-    std::string state;
-    std::string county;
-    float latitude;
-    float longitude;
-};
+#include "zipcode.h"
+#include "filereader.h"
 
-class Buffer
-{
-private:
+class Buffer {
+    std::vector<ZipCodeData> zipcodes;
+    FileReader reader;
+    std::tuple<int, std::string, std::string, std::string, float, float> tokenize_line(const std::string&);
+    void populate_zipcodes();
+    
 public:
+    Buffer(const std::string&);
+
+    std::vector<ZipCodeData> get_zipcodes();
 };
