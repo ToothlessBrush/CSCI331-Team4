@@ -2,6 +2,7 @@
 #define ZIP_CODE_H
 
 #include <string>
+#include <tuple>
 
 struct ZipCodeData
 {
@@ -11,6 +12,10 @@ struct ZipCodeData
     std::string county;
     float latitude;
     float longitude;
+
+    ZipCodeData(std::tuple<int, std::string, std::string, std::string, float, float>);
+    
+    friend std::ostream& operator<<(std::ostream&, const ZipCodeData&);
 };
 
 #endif // ZIP_CODE_H
