@@ -1,3 +1,6 @@
+/**
+ * @file filereader.cpp
+ */
 #include "filereader.h"
 
 FileReader::FileReader(const std::string& input_file) 
