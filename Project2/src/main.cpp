@@ -12,7 +12,7 @@
 
 /**
  * @brief Parses a vector of ZipCodeData records to find the Easternmost, Westernmost, Northernmost, and Southernmost zip codes for each state.
- * 
+ *
  * @param records A vector of ZipCodeData containing zip code information including latitude and longitude.
  * @return A map where the key is the state (two-letter string), and the value is a tuple of integers representing:
  *         - Easternmost zip code (least longitude)
@@ -20,7 +20,7 @@
  *         - Northernmost zip code (most latitude)
  *         - Southernmost zip code (least latitude)
  */
-std::map<std::string, std::tuple<int, int, int, int>> parse_data(std::vector<ZipCodeData> records)
+std::map<std::string, std::tuple<int, int, int, int>> parse_data(const std::vector<ZipCodeData> &records)
 {
     // create map key is state, tuple is Easternmost (least longitude), Westernmost (most longitude), Northernmost (most latitude), Southernmost (least latitude)
     std::map<std::string, std::tuple<int, int, int, int>> data;
@@ -61,7 +61,9 @@ std::map<std::string, std::tuple<int, int, int, int>> parse_data(std::vector<Zip
                 west = entry.longitude;
                 west_zip_code = zip_code;
             }
-            else if (entry.latitude > north)
+
+            // check if the new entry is more northern or southern than the current northernmost or southernmost (not else if since it could be both)
+            if (entry.latitude > north)
             {
                 north = entry.latitude;
                 north_zip_code = zip_code;
@@ -82,10 +84,10 @@ std::map<std::string, std::tuple<int, int, int, int>> parse_data(std::vector<Zip
 
 /**
  * @brief Prints the parsed data of each state with the respective Easternmost, Westernmost, Northernmost, and Southernmost zip codes.
- * 
+ *
  * @param data A map where the key is the state (string) and the value is a tuple of zip codes (int) for East, West, North, and South extremes.
  */
-void print_data(std::map<std::string, std::tuple<int, int, int, int>> data)
+void print_data(const std::map<std::string, std::tuple<int, int, int, int>> &data)
 {
     std::cout << std::left << std::setw(8) << "State" << std::setw(15) << "East" << std::setw(15) << "West" << std::setw(15) << "North" << std::setw(15) << "South" << std::endl;
     for (const auto &entry : data)
@@ -96,7 +98,7 @@ void print_data(std::map<std::string, std::tuple<int, int, int, int>> data)
 
 /**
  * @brief Main function that reads zip code data from a CSV file, parses it, and prints the extreme zip codes (East, West, North, South) for each state.
- * 
+ *
  * @return int Returns 0 if the program executes successfully.
  */
 int main()
