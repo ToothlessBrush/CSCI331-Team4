@@ -1,51 +1,56 @@
 /**
- * @file buffer.h
+ * @file buffer.cpp
  */
-#ifndef BUFFER_H
-#define BUFFER_H
+#include "buffer.h"
 
-#include <string>
-#include <map>
-#include <vector>
-#include <tuple>
+#include <sstream>
 
-#include "zipcode.h"
-#include "filereader.h"
+Buffer::Buffer(const std::string& file) : reader(FileReader(file))
+{
+    this->populate_zipcodes();
+}
 
-/**
- * @brief The Buffer class reads zip code data from a file and processes it into a usable format.
- */
-class Buffer {
-    std::vector<ZipCodeData> zipcodes;  ///< Vector to store all zip code data.
-    FileReader reader;  ///< FileReader object to handle file operations.
-    
-    /**
-     * @brief Tokenizes a line of CSV data into individual zip code components.
-     * 
-     * @param line The input string representing a single line of CSV data.
-     * @return A tuple containing the zip code, place name, state, county, latitude, and longitude.
-     */
-    std::tuple<int, std::string, std::string, std::string, float, float> tokenize_line(const std::string&);
+std::tuple<int, std::string, std::string, std::string, float, float> Buffer::tokenize_line(const std::string& line)
+{
+    int zip_code;
+    std::string place_name;
+    std::string state;
+    std::string county;
+    float latitude;
+    float longitude;
 
-    /**
-     * @brief Populates the zipcodes vector with data parsed from the file.
-     */
-    void populate_zipcodes();
+    std::stringstream stream(line);
+    std::string token;
 
-public:
-    /**
-     * @brief Constructs a Buffer object that reads data from the specified file.
-     * 
-     * @param file The path to the input CSV file.
-     */
-    Buffer(const std::string&);
+    std::getline(stream, token, ',');
+    zip_code = std::stoi(token);
 
-    /**
-     * @brief Returns the vector containing all zip code data.
-     * 
-     * @return A vector of ZipCodeData objects.
-     */
-    std::vector<ZipCodeData> get_zipcodes();
-};
+    std::getline(stream, place_name, ',');
 
-#endif // BUFFER_H
+    std::getline(stream, state, ',');
+
+    std::getline(stream, county, ',');
+
+    std::getline(stream, token, ',');
+    latitude = std::stof(token);
+
+    std::getline(stream, token, ',');
+    longitude = std::stof(token);
+
+
+    return std::make_tuple(zip_code, place_name, state, county, latitude, longitude);
+}
+
+void Buffer::populate_zipcodes()
+{
+    std::vector<std::string> data = reader.get_lines();
+
+    for (int i = 1; i < data.size(); i++) {
+        std::tuple<int, std::string, std::string, std::string, float, float> zipcode_data = tokenize_line(data[i]);
+        this->zipcodes.push_back(ZipCodeData(zipcode_data));
+    }
+}
+
+std::vector<ZipCodeData> Buffer::get_zipcodes() {
+    return this->zipcodes;
+}
