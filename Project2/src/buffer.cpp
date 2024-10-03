@@ -1,3 +1,6 @@
+/**
+ * @file buffer.cpp
+ */
 #include "buffer.h"
 
 #include <sstream>
