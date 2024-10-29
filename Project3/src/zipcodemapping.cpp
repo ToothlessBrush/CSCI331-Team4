@@ -2,7 +2,7 @@
 
 ZipCodeMapping::ZipCodeMapping(const std::vector<ZipCodeData>& data) {
     for (const ZipCodeData& entry : data) {
-        this->zip_code_mapping.add_entry(entry.zipcode, entry);
+        this->zip_code_mapping.add_entry(entry.zip_code, entry);
     }
 }
 

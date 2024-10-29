@@ -5,6 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 include_directories(include)
 
-file(GLOB SOURCES src/*.cpp)
+file(GLOB SOURCES src/*.cpp src/*.tpp)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
