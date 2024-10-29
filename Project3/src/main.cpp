@@ -24,11 +24,16 @@ int main(int argc, char* argv[])
 
     std::string filepath = argv[1], zipcode = argv[2];
 
-    std::cout << "File name: " << filepath << std::endl;
-    std::cout << "Zip code: " << zipcode << std::endl;
+    // std::cout << "File name: " << filepath << std::endl;
+    // std::cout << "Zip code: " << zipcode << std::endl;
 
     Buffer buffer(filepath);
 
     ZipCodeMapping zip_code_map(buffer.get_zipcodes());
+    
+    // std::cout << zip_code_map.has_key("12345") << std::endl;
+
+    zip_code_map.write_to_stream(std::cout, "45678");
+
     return 0;
 }

@@ -22,8 +22,7 @@ std::tuple<std::string, std::string, std::string, std::string, float, float> Buf
     std::stringstream stream(line);
     std::string token;
 
-    std::getline(stream, token, ',');
-    zip_code = std::stoi(token);
+    std::getline(stream, zip_code, ',');
 
     std::getline(stream, place_name, ',');
 
