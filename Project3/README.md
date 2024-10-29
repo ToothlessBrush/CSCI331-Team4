@@ -8,5 +8,5 @@ run:
     cmake --preset default
     cd build
     make
-    ./a.out <filename.csv> -Z<zipcode>
+    ./a.out <path/to/data.csv> -Z<zipcode>
 ```
