@@ -22,18 +22,31 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    std::string filepath = argv[1], zipcode = argv[2];
+    std::string filepath = argv[1];
+    std::vector<std::string> zipcodes;
 
-    // std::cout << "File name: " << filepath << std::endl;
-    // std::cout << "Zip code: " << zipcode << std::endl;
+    for (int i = 2; i < argc; ++i) {
+        if (argv[i][0] == '-' && argv[i][1] == 'Z') {
+            zipcodes.emplace_back(argv[i] + 2);
+        }
+        else {
+            std::cerr << "Invalid Zip Code Format: " << argv[i] << ". Use -Z<zipcode>" << std::endl << std::endl;
+        }
+    }
 
     Buffer buffer(filepath);
 
     ZipCodeMapping zip_code_map(buffer.get_zipcodes());
-    
-    // std::cout << zip_code_map.has_key("12345") << std::endl;
 
-    zip_code_map.write_to_stream(std::cout, "45678");
+    for (const std::string& zipcode : zipcodes) {
+        if (!zip_code_map.has_key(zipcode)) {
+            std::cout << "Zip code does not exist in file" << std::endl << std::endl;
+        } 
+        else {
+            zip_code_map.write_to_stream(std::cout, zipcode);
+            std::cout << std::endl;
+        }
+    }
 
     return 0;
 }
