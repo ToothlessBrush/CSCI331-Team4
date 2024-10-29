@@ -103,7 +103,7 @@ void print_data(const std::map<std::string, std::tuple<int, int, int, int>> &dat
  */
 int main()
 {
-    std::string file_name = "us_postal_codes_csv.csv";
+    std::string file_name = "../data/us_postal_codes_csv.csv";
     Buffer buffer(file_name);
     std::map<std::string, std::tuple<int, int, int, int>> data = parse_data(buffer.get_zipcodes());
     print_data(data);
