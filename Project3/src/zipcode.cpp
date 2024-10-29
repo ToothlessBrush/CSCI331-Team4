@@ -10,11 +10,11 @@ ZipCodeData::ZipCodeData(std::tuple<std::string, std::string, std::string, std::
 }
 
 std::ostream& operator<<(std::ostream& outputstream, const ZipCodeData& zipcode) {
-    outputstream << "Zip Code: " << zipcode.zip_code << std::endl;
-    outputstream << "Place Name: " << zipcode.place_name << std::endl;
-    outputstream << "State: " << zipcode.state << std::endl;
-    outputstream << "County: " << zipcode.county << std::endl;
-    outputstream << "Latitude and Longitude: " << zipcode.latitude << ", " << zipcode.longitude << std::endl;
+    outputstream << zipcode.zip_code << ",";
+    outputstream << zipcode.place_name << ",";
+    outputstream << zipcode.state << ",";
+    outputstream << zipcode.county << ",";
+    outputstream << zipcode.latitude << ", " << zipcode.longitude << std::endl;
 
     return outputstream;
 }

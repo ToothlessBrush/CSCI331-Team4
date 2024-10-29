@@ -34,18 +34,25 @@ int main(int argc, char* argv[])
         }
     }
 
-    Buffer buffer(filepath);
+    try {
+        Buffer buffer(filepath);
 
-    ZipCodeMapping zip_code_map(buffer.get_zipcodes());
+        ZipCodeMapping zip_code_map(buffer.get_zipcodes());
 
-    for (const std::string& zipcode : zipcodes) {
-        if (!zip_code_map.has_key(zipcode)) {
-            std::cout << "Zip code does not exist in file" << std::endl << std::endl;
-        } 
-        else {
-            zip_code_map.write_to_stream(std::cout, zipcode);
-            std::cout << std::endl;
+        for (const std::string& zipcode : zipcodes) {
+            if (!zip_code_map.has_key(zipcode)) {
+                std::cout << "Zip code: " << zipcode << " does not exist in file" << std::endl << std::endl;
+            } 
+            else {
+                zip_code_map.write_to_stream(std::cout, zipcode);
+                std::cout << std::endl;
+            }
         }
+
+    } 
+    catch(std::runtime_error& e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+        return 1;
     }
 
     return 0;
