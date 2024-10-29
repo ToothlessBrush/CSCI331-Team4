@@ -1,5 +1,12 @@
-# Team-4 Project-2
+# CSCI 331 Project 3
 
-## Run With
+## Build Steps
 
-`g++ *.cpp -o app.exe`
+run:
+
+```bash
+    cmake --preset default
+    cd build
+    make
+    ./a.out <filename.csv> -Z<zipcode>
+```
