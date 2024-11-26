@@ -1,5 +1,6 @@
 #include <iostream>
 #include "blockBuilder.h"
+#include "blockbuffer.h"
 
 int main()
 {
@@ -11,5 +12,13 @@ int main()
     else
     {
         std::cout << "Error creating blocks!\n";
+    }
+
+    BlockBuffer blockBuffer("../data/blocks.csv");
+
+    std::vector<ZipCodeData> blockData = blockBuffer.get_block_data(0);
+
+    for (const auto& data : blockData) {
+        std::cout << data << std::endl;
     }
 }

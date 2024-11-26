@@ -34,7 +34,7 @@ void Block::writeToFile(std::ofstream &outputFile) const
         outputFile << records[i];
         if (i < records.size() - 1)
         {
-            outputFile << ",";
+            outputFile << '\n';
         }
     }
     outputFile << "\n";
@@ -55,6 +55,8 @@ bool BlockBuilder::buildBlocks()
     unsigned int blockNumber = 0;
     Block currentBlock(blockNumber);
     std::string line;
+
+    std::getline(inputFile, line);
 
     while (std::getline(inputFile, line))
     {
